@@ -2,17 +2,13 @@ package constants;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.openqa.selenium.interactions.Actions;
 
 public class Elements {
 
     // ----- Web Driver ----- \\
     public static WebDriver tester;
-
+    public static Actions actions;
 
     // 1. Navigation Buttons
     public static By homeNavPath =
@@ -61,6 +57,26 @@ public class Elements {
             new By.ByXPath("//li[@data-slide-to='1']");
     public static By slideRightButton =
             new By.ByXPath("//li[@data-slide-to='2']");
+
+    // 4. category section
+    public static By phonesCategoryButton =
+            new By.ByXPath("//a[contains(text(), 'Phones')]");
+    public static By laptopsCategoryButton =
+            new By.ByXPath("//a[contains(text(), 'Laptops')]");
+    public static By monitorsCategoryButton =
+            new By.ByXPath("//a[contains(text(), 'Monitors')]");
+
+    public static By[][] expectedItems = {
+            {new By.ByXPath("//h4/a[contains(text(), 'Samsung galaxy s6')]")},
+            {new By.ByXPath("//h4/a[contains(text(), 'Sony vaio i5')]")},
+            {new By.ByXPath("//h4/a[contains(text(), 'Apple monitor 24')]")}
+    };
+
+    public static By nextPage =
+            new By.ByXPath("//button[@id='next2']");
+    public static By prevPage =
+            new By.ByXPath("//button[@id='prev2']");
+
 
 
 }

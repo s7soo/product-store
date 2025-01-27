@@ -3,6 +3,7 @@ package pages;
 import org.apache.logging.log4j.core.net.Priority;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -20,15 +21,19 @@ public class HomePage {
 
 
     @BeforeTest
-    public static void initiateDriver(){
+    public static void setup(){
         if (tester == null){
             tester = new ChromeDriver();
+        }
+        if (actions == null){
+            actions = new Actions(tester);
         }
     }
 
     @BeforeMethod
     public void openHomePage(){
         tester.get(homePage);
+        tester.manage().window().maximize();
     }
 
     // 1. navigation menu
@@ -126,7 +131,7 @@ public class HomePage {
 
     @Test (priority = 3)
     public void pressSlideLeftButton(){
-        logger.info("Case 9: Press slide button 1");
+        logger.info("Case 9: Press left slide button");
 
         tester.findElement(slideLeftButton).click();
         waitForElementVisibility(5, slideImage1);
@@ -136,7 +141,7 @@ public class HomePage {
     }
     @Test (priority = 3)
     public void pressSlideMiddleButton(){
-        logger.info("Case 10: Press slide button 1");
+        logger.info("Case 10: Press middle slide button");
 
         tester.findElement(slideMiddleButton).click();
         waitForElementVisibility(5, slideImage2);
@@ -146,13 +151,71 @@ public class HomePage {
     }
     @Test (priority = 3)
     public void pressSlideRightButton(){
-        logger.info("Case 10: Press slide button 1");
+        logger.info("Case 10: Press right slide button");
 
         tester.findElement(slideRightButton).click();
         waitForElementVisibility(5, slideImage3);
         Assert.assertTrue(tester.findElement(slideImage3).isDisplayed());
 
         logger.info("Case 10 --> Pass");
+    }
+    @Test (priority = 2)
+    public void pressPhoneCategory(){
+        logger.info("Case 11: Press phones category button");
+
+        tester.findElement(phonesCategoryButton).click();
+        waitForElementVisibility(10,expectedItems[0][0]);
+        WebElement phone = tester.findElement(expectedItems[0][0]);
+        Assert.assertTrue(phone.isDisplayed());
+
+        logger.info("Case 11 --> Pass");
+
+    }
+    @Test (priority = 2)
+    public void pressLaptopsCategory(){
+        logger.info("Case 12: Press laptop category button");
+
+        tester.findElement(laptopsCategoryButton).click();
+        waitForElementVisibility(10,expectedItems[1][0]);
+        WebElement laptop = tester.findElement(expectedItems[1][0]);
+        Assert.assertTrue(laptop.isDisplayed());
+
+        logger.info("Case 12 --> Pass");
+
+    }
+    @Test (priority = 2)
+    public void pressMonitorCategory(){
+        logger.info("Case 13: Press monitor category button");
+
+        tester.findElement(monitorsCategoryButton).click();
+        waitForElementVisibility(10,expectedItems[2][0]);
+        WebElement monitor = tester.findElement(expectedItems[2][0]);
+        Assert.assertTrue(monitor.isDisplayed());
+
+        logger.info("Case 13 --> Pass");
+
+    }
+    @Test (priority = 2)
+    public void pressNextPageInCategorySection(){
+        logger.info("Case 14: Press next page button");
+
+        WebElement next = tester.findElement(nextPage);
+        scrollToElement(next);
+        next.click();
+        waitForElementVisibility(10, expectedItems[2][0]);
+        WebElement monitor = tester.findElement(expectedItems[2][0]);
+        Assert.assertTrue(monitor.isDisplayed());
+
+
+        logger.info("Case 14 --> Pass");
+    }
+    @Test (priority = 2)
+    public void pressPrevPageInCategorySection(){
+        logger.info("Case 15: Press previous page button");
+
+
+
+        logger.info("Case 15 --> Pass");
     }
 
     @AfterTest

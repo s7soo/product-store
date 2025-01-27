@@ -1,6 +1,7 @@
 package functions;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -26,5 +27,12 @@ public class HomeHelper {
             activeImage = slideImage1;
         }
         return tester.findElement(activeImage);
+    }
+
+    public static void scrollToElement(WebElement element){
+        actions = new Actions(tester);
+        actions.moveToElement(element);
+        actions.perform();
+
     }
 }
