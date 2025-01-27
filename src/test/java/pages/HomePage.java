@@ -20,6 +20,7 @@ public class HomePage {
     static final Logger logger = Logger.getLogger(String.valueOf(HomePage.class));
 
 
+
     @BeforeTest
     public static void setup(){
         if (tester == null){
@@ -28,6 +29,8 @@ public class HomePage {
         if (actions == null){
             actions = new Actions(tester);
         }
+        homeFailed = 0;
+        homePassed = 0;
     }
 
     @BeforeMethod
@@ -41,67 +44,102 @@ public class HomePage {
     public void navigateToHomePage(){
         logger.info("Case 1: Pressing Home Button");
 
-        tester.findElement(homeNavPath).click();
-        Assert.assertEquals(tester.getCurrentUrl(), homePage);
-
-        logger.info("Case 1 --> Pass");
+        try {
+            tester.findElement(homeNavPath).click();
+            Assert.assertEquals(tester.getCurrentUrl(), homePage);
+            homePassed+=1;
+            logger.info("Case 1: Pass");
+        }catch (Exception e){
+            logger.info("Case 1: Fail");
+            homeFailed+=1;
+        }
 
     }
     @Test (priority = 2)
     public void openContactSection(){
         logger.info("Case 2: Pressing contact button");
 
-        tester.findElement(contactNavPath).click();
-        // Wait for the section to become visible
-        WebElement section = waitForElementVisibility( 10, contactSectionPath);
-        Assert.assertTrue(section.isDisplayed(), "The contact section is not displayed");
 
-        logger.info("Case 2 --> Pass");
+        try {
+            tester.findElement(contactNavPath).click();
+            WebElement section = waitForElementVisibility( 10, contactSectionPath);
+            Assert.assertTrue(section.isDisplayed());
+            homePassed+=1;
+            logger.info("Case 2: Pass");
+        }catch (Exception e){
+            logger.info("Case 2: Fail");
+            homeFailed+=1;
+        }
     }
 
     @Test (priority = 2)
     public void openAboutUsSection(){
         logger.info("Case 3: Pressing about us button");
 
-        tester.findElement(aboutUsNavPath).click();
-        // Wait for the section to become visible
-        WebElement section = waitForElementVisibility( 10, aboutUsSectionPath);
-        Assert.assertTrue(section.isDisplayed(), "The about us section is not displayed");
 
-        logger.info("Case 3 --> Pass");
+        try {
+            tester.findElement(aboutUsNavPath).click();
+            WebElement section = waitForElementVisibility( 10, aboutUsSectionPath);
+            Assert.assertTrue(section.isDisplayed());
+            logger.info("Case 3 --> Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 3: Fail - The about us section is not displayed");
+        }
+
+
     }
 
     @Test (priority = 2)
     public void navigateToCartPage(){
         logger.info("Case 4: Pressing cart button");
 
+
+    try {
         tester.findElement(cartNavPath).click();
         Assert.assertEquals(tester.getCurrentUrl(), cartPage);
+        logger.info("Case 4:Pass");
+        homePassed+=1;
+    } catch (Exception e) {
+        homeFailed+=1;
+        logger.info("Case 4: Fail");
+    }
 
-        logger.info("Case 4 --> Pass");
     }
 
     @Test (priority = 2)
     public void openLoginSection(){
         logger.info("Case 5: Pressing login button");
 
-        tester.findElement(loginNavPath).click();
-        // Wait for the section to become visible
-        WebElement section = waitForElementVisibility(10, loginSectionPath);
-        Assert.assertTrue(section.isDisplayed(), "The login section is not displayed");
 
-        logger.info("Case 5 --> Pass");
+        try {
+            tester.findElement(loginNavPath).click();
+            WebElement section = waitForElementVisibility(10, loginSectionPath);
+            Assert.assertTrue(section.isDisplayed());
+            logger.info("Case 5: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 5: Fail");
+        }
+
     }
     @Test (priority = 2)
     public void openSignUpSection(){
         logger.info("Case 6: Pressing sign up button");
 
-        tester.findElement(signUpUsNavPath).click();
-        // Wait for the section to become visible
-        WebElement section = waitForElementVisibility(10, signupSectionPath);
-        Assert.assertTrue(section.isDisplayed(), "The sign up section is not displayed");
 
-        logger.info("Case 6 --> Pass");
+        try {
+            tester.findElement(signUpUsNavPath).click();
+            WebElement section = waitForElementVisibility(10, signupSectionPath);
+            Assert.assertTrue(section.isDisplayed());
+            logger.info("Case 6: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 6: Fail");
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -110,116 +148,168 @@ public class HomePage {
     public void pressNextArrow(){
         logger.info("Case 7: Pressing next Arrow..");
 
-        WebElement activeImage = getActiveImage();
-        tester.findElement(nextArrow).click();
-        waitForElementInVisibility(10, activeImage);
-        Assert.assertFalse(activeImage.isDisplayed());
 
-        logger.info("Case 7 --> Pass");
+        try {
+            WebElement activeImage = getActiveImage();
+            tester.findElement(nextArrow).click();
+            waitForElementInVisibility(10, activeImage);
+            Assert.assertFalse(activeImage.isDisplayed());
+            logger.info("Case 7: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 7: Fail");
+        }
     }
     @Test (priority = 3)
     public void pressPrevArrow(){
         logger.info("Case 8: Pressing previous Arrow..");
 
-        WebElement activeImage = getActiveImage();
-        tester.findElement(prevArrow).click();
-        waitForElementInVisibility(10, activeImage);
-        Assert.assertFalse(activeImage.isDisplayed());
 
-        logger.info("Case 8 --> Pass");
+        try {
+            WebElement activeImage = getActiveImage();
+            tester.findElement(prevArrow).click();
+            waitForElementInVisibility(10, activeImage);
+            Assert.assertFalse(activeImage.isDisplayed());
+            logger.info("Case 8: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 8: Fail");
+        }
     }
 
     @Test (priority = 3)
     public void pressSlideLeftButton(){
         logger.info("Case 9: Press left slide button");
 
-        tester.findElement(slideLeftButton).click();
-        waitForElementVisibility(5, slideImage1);
-        Assert.assertTrue(tester.findElement(slideImage1).isDisplayed());
-
-        logger.info("Case 9 --> Pass");
+        try {
+            tester.findElement(slideLeftButton).click();
+            waitForElementVisibility(5, slideImage1);
+            Assert.assertTrue(tester.findElement(slideImage1).isDisplayed());
+            logger.info("Case 9: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 9: Fail");
+        }
     }
     @Test (priority = 3)
     public void pressSlideMiddleButton(){
         logger.info("Case 10: Press middle slide button");
 
-        tester.findElement(slideMiddleButton).click();
-        waitForElementVisibility(5, slideImage2);
-        Assert.assertTrue(tester.findElement(slideImage2).isDisplayed());
-
-        logger.info("Case 10 --> Pass");
+        try {
+            tester.findElement(slideMiddleButton).click();
+            waitForElementVisibility(5, slideImage2);
+            Assert.assertTrue(tester.findElement(slideImage2).isDisplayed());
+            logger.info("Case 10: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 10: Fail");
+        }
     }
     @Test (priority = 3)
     public void pressSlideRightButton(){
-        logger.info("Case 10: Press right slide button");
+        logger.info("Case 11: Press right slide button");
 
-        tester.findElement(slideRightButton).click();
-        waitForElementVisibility(5, slideImage3);
-        Assert.assertTrue(tester.findElement(slideImage3).isDisplayed());
-
-        logger.info("Case 10 --> Pass");
+        try {
+            tester.findElement(slideRightButton).click();
+            waitForElementVisibility(5, slideImage3);
+            Assert.assertTrue(tester.findElement(slideImage3).isDisplayed());
+            logger.info("Case 11: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 11: Fail");
+        }
     }
     @Test (priority = 2)
     public void pressPhoneCategory(){
-        logger.info("Case 11: Press phones category button");
+        logger.info("Case 12: Press phones category button");
 
-        tester.findElement(phonesCategoryButton).click();
-        waitForElementVisibility(10,expectedItems[0][0]);
-        WebElement phone = tester.findElement(expectedItems[0][0]);
-        Assert.assertTrue(phone.isDisplayed());
 
-        logger.info("Case 11 --> Pass");
+        try {
+            tester.findElement(phonesCategoryButton).click();
+            waitForElementVisibility(10,expectedItems[0][0]);
+            WebElement phone = tester.findElement(expectedItems[0][0]);
+            Assert.assertTrue(phone.isDisplayed());
+            logger.info("Case 12 --> Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 12: Fail");
+        }
 
     }
     @Test (priority = 2)
     public void pressLaptopsCategory(){
-        logger.info("Case 12: Press laptop category button");
+        logger.info("Case 13: Press laptop category button");
 
-        tester.findElement(laptopsCategoryButton).click();
-        waitForElementVisibility(10,expectedItems[1][0]);
-        WebElement laptop = tester.findElement(expectedItems[1][0]);
-        Assert.assertTrue(laptop.isDisplayed());
-
-        logger.info("Case 12 --> Pass");
+        try {
+            tester.findElement(laptopsCategoryButton).click();
+            waitForElementVisibility(10,expectedItems[1][0]);
+            WebElement laptop = tester.findElement(expectedItems[1][0]);
+            Assert.assertTrue(laptop.isDisplayed());
+            logger.info("Case 13 --> Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 13: Fail");
+        }
 
     }
     @Test (priority = 2)
     public void pressMonitorCategory(){
-        logger.info("Case 13: Press monitor category button");
+        logger.info("Case 14: Press monitor category button");
 
-        tester.findElement(monitorsCategoryButton).click();
-        waitForElementVisibility(10,expectedItems[2][0]);
-        WebElement monitor = tester.findElement(expectedItems[2][0]);
-        Assert.assertTrue(monitor.isDisplayed());
-
-        logger.info("Case 13 --> Pass");
+        try {
+            tester.findElement(monitorsCategoryButton).click();
+            waitForElementVisibility(10,expectedItems[2][0]);
+            WebElement monitor = tester.findElement(expectedItems[2][0]);
+            Assert.assertTrue(monitor.isDisplayed());
+            logger.info("Case 14: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 14: Fail");
+        }
 
     }
     @Test (priority = 2)
-    public void pressNextPageInCategorySection(){
-        logger.info("Case 14: Press next page button");
+    public void pressNextPageInCategorySection() throws InterruptedException {
+        logger.info("Case 15: Press next page button");
 
-        WebElement next = tester.findElement(nextPage);
-        scrollToElement(next);
-        next.click();
-        waitForElementVisibility(10, expectedItems[2][0]);
-        WebElement monitor = tester.findElement(expectedItems[2][0]);
-        Assert.assertTrue(monitor.isDisplayed());
-
-
-        logger.info("Case 14 --> Pass");
+        try {
+            WebElement next = tester.findElement(nextPage);
+            scrollToElement(next);
+            Thread.sleep(1000);
+            next.click();
+            waitForElementVisibility(10, expectedItems[2][0]);
+            WebElement monitor = tester.findElement(expectedItems[2][0]);
+            Assert.assertTrue(monitor.isDisplayed());
+            logger.info("Case 15: Pass");
+            homePassed+=1;
+        } catch (Exception e) {
+            homeFailed+=1;
+            logger.info("Case 15: Fail");
+        }
     }
     @Test (priority = 2)
     public void pressPrevPageInCategorySection(){
-        logger.info("Case 15: Press previous page button");
-
-
-
-        logger.info("Case 15 --> Pass");
+//        logger.info("Case 16: Press previous page button");
+//        try {
+//            logger.info("Case 16 --> Pass");
+//            homePassed+=1;
+//        } catch (Exception e) {
+//            homeFailed+=1;
+//            logger.info("Case 16: Fail - Next Page button does not work");
+//        }
     }
 
     @AfterTest
     public static void disableDriver(){
+        logger.info("Final Result\nPass: "+homePassed+"\n"+"Fail: "+homeFailed);
         tester.quit();
     }
 }

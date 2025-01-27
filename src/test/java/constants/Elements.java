@@ -78,5 +78,8 @@ public class Elements {
             new By.ByXPath("//button[@id='prev2']");
 
 
+    // 5. Counters
+    public static int homePassed;
+    public static int homeFailed;
 
 }
