@@ -5,16 +5,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.*;
 
-import java.util.logging.Logger;
-
 import static constants.Elements.*;
+import static constants.Values.*;
 import static constants.Links.*;
-import static functions.HomeHelper.*;
+import static functions.GenericHelper.*;
 
 
 public class HomePage {
-    static final Logger logger = Logger.getLogger(String.valueOf(HomePage.class));
-
 
 
     @BeforeTest

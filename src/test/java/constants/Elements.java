@@ -1,10 +1,16 @@
 package constants;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
+import pages.HomePage;
+
+import java.util.logging.Logger;
 
 public class Elements {
 
@@ -12,6 +18,8 @@ public class Elements {
     public static WebDriver tester;
     public static Actions actions;
     public static Assertion assertion = new Assertion();
+    public static final Logger logger = Logger.getLogger(String.valueOf(HomePage.class));
+
 
     // 1. Navigation Buttons
     public static By homeNavPath =
@@ -84,8 +92,14 @@ public class Elements {
             new By.ByXPath("//button[@id='prev2']");
 
 
-    // 5. Counters
-    public static int homePassed;
-    public static int homeFailed;
+    // Signup Elements
+    public static By username =
+            new By.ByXPath("//input[@id='sign-username']");
 
+    public static By password =
+            new By.ByXPath("//input[@id='sign-password']");
+    public static By signupButton =
+            new By.ByXPath("//button[contains(text(), 'Sign up')]");
+    public static By closeButton =
+            new By.ByXPath("//button[contains(text(), 'Close')]");
 }

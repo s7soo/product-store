@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import static constants.Elements.*;
 
-public class HomeHelper {
+public class GenericHelper {
 
     public static WebElement findElementAndWait(long time, By path){
         WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
@@ -56,5 +56,13 @@ public class HomeHelper {
     }
     public static By findElementWithText(String text){
        return  new By.ByXPath("//h4/a[contains(text(), '"+text+"')]");
+    }
+    public static void clearFields(By f1, By f2){
+        tester.findElement(f1).clear();
+        tester.findElement(f2).clear();
+    }
+    public static Alert waitAlert(long time){
+        WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
+        return wait.until(ExpectedConditions.alertIsPresent());
     }
 }
