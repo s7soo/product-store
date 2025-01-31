@@ -3,12 +3,15 @@ package constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.asserts.Assertion;
+import org.testng.asserts.SoftAssert;
 
 public class Elements {
 
     // ----- Web Driver ----- \\
     public static WebDriver tester;
     public static Actions actions;
+    public static Assertion assertion = new Assertion();
 
     // 1. Navigation Buttons
     public static By homeNavPath =
@@ -59,6 +62,9 @@ public class Elements {
             new By.ByXPath("//li[@data-slide-to='2']");
 
     // 4. category section
+
+    public static By categoryButton =
+            new By.ByXPath("//a[contains(text(), 'CATEGORIES')]");
     public static By phonesCategoryButton =
             new By.ByXPath("//a[contains(text(), 'Phones')]");
     public static By laptopsCategoryButton =
