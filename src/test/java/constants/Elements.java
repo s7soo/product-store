@@ -1,13 +1,9 @@
 package constants;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.asserts.Assertion;
-import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 
 import java.util.logging.Logger;
@@ -34,7 +30,7 @@ public class Elements {
             new By.ByXPath("//a[contains(text(), 'Log in')]");
     public static By logoutNavPath =
             new By.ByXPath("//a[contains(text(), 'Log out')]");
-    public static By signUpUsNavPath =
+    public static By signUpNavPath =
             new By.ByXPath("//a[contains(text(), 'Sign up')]");
 
 
@@ -93,13 +89,26 @@ public class Elements {
 
 
     // Signup Elements
-    public static By username =
+    public static By signUsername =
             new By.ByXPath("//input[@id='sign-username']");
 
-    public static By password =
+    public static By signPassword =
             new By.ByXPath("//input[@id='sign-password']");
     public static By signupButton =
             new By.ByXPath("//button[contains(text(), 'Sign up')]");
-    public static By closeButton =
+    public static By signupCloseButton =
             new By.ByXPath("//button[contains(text(), 'Close')]");
+
+    // Login Elements
+    public static By loginUsername =
+            new By.ByXPath("//input[@id='loginusername']");
+
+    public static By loginPassword =
+            new By.ByXPath("//input[@id='loginpassword']");
+    public static By loginButton =
+            new By.ByXPath("//button[contains(text(), 'Log in')]");
+    public static By loginCloseButton =
+            new By.ByXPath("//button[contains(text(), 'Close')]");
+    public static By visibleName =
+            new By.ByXPath("//a[@id='nameofuser']");
 }

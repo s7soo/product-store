@@ -1,4 +1,4 @@
-package functions;
+package utilities;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -21,17 +21,7 @@ public class GenericHelper {
         WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
-    public static WebElement getActiveImage(){
-        By activeImage;
-        if (tester.findElement(slideImage3).isDisplayed()){
-            activeImage = slideImage3;
-        }else if (tester.findElement(slideImage2).isDisplayed()){
-            activeImage = slideImage2;
-        }else {
-            activeImage = slideImage1;
-        }
-        return tester.findElement(activeImage);
-    }
+
 
     public static void scrollToElement(WebElement element){
         actions = new Actions(tester);
@@ -45,9 +35,6 @@ public class GenericHelper {
     public static void checkElementNotDisplayed(WebElement element){
         assertion.assertFalse(element.isDisplayed());
     }
-    public static void checkElementEnabled(WebElement element){
-        assertion.assertTrue(element.isEnabled());
-    }
     public static void compare(String actual,String expected){
         assertion.assertEquals(actual,expected);
     }
@@ -56,10 +43,6 @@ public class GenericHelper {
     }
     public static By findElementWithText(String text){
        return  new By.ByXPath("//h4/a[contains(text(), '"+text+"')]");
-    }
-    public static void clearFields(By f1, By f2){
-        tester.findElement(f1).clear();
-        tester.findElement(f2).clear();
     }
     public static Alert waitAlert(long time){
         WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));

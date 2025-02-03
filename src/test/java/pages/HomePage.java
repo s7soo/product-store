@@ -8,7 +8,9 @@ import org.testng.annotations.*;
 import static constants.Elements.*;
 import static constants.Values.*;
 import static constants.Links.*;
-import static functions.GenericHelper.*;
+import static utilities.GenericHelper.*;
+import static utilities.HomeHelper.*;
+import static utilities.HomeHelper.navigateToPage;
 
 
 public class HomePage {
@@ -22,8 +24,6 @@ public class HomePage {
         if (actions == null){
             actions = new Actions(tester);
         }
-        homeFailed = 0;
-        homePassed = 0;
     }
 
     @BeforeMethod
@@ -35,239 +35,118 @@ public class HomePage {
     // 1. navigation menu
     @Test (priority = 2)
     public void navigateToHomePage(){
-        logger.info("Case 1: Pressing Home Button");
-
-        try {
-            tester.findElement(homeNavPath).click();
-            compare(tester.getCurrentUrl(), homePage);
-            homePassed+=1;
-            logger.info("Case 1: Pass");
-        }catch (Exception e){
-            logger.info("Case 1: Fail - Cause: " + e);
-            homeFailed+=1;
-        }
-
+        navigateToPage(
+                1,
+                homeNavPath,
+                homePage);
     }
     @Test (priority = 2)
     public void openContactSection(){
-        logger.info("Case 2: Pressing contact button");
-
-
-        try {
-            tester.findElement(contactNavPath).click();
-            WebElement section = findElementAndWait( 10, contactSectionPath);
-            checkElementDisplay(section);
-            homePassed+=1;
-            logger.info("Case 2: Pass");
-        }catch (Exception e){
-            logger.info("Case 2: Fail - Cause: " + e);
-            homeFailed+=1;
-        }
+        openSection(
+                2,
+                contactNavPath,
+                contactSectionPath);
     }
 
     @Test (priority = 2)
     public void openAboutUsSection(){
-        logger.info("Case 3: Pressing about us button");
-
-
-        try {
-            tester.findElement(aboutUsNavPath).click();
-            WebElement section = findElementAndWait( 10, aboutUsSectionPath);
-            checkElementDisplay(section);
-            logger.info("Case 3 --> Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 3: Fail - Cause: " + e);
-        }
-
-
+        openSection(
+                3,
+                aboutUsNavPath,
+                aboutUsSectionPath);
     }
 
     @Test (priority = 2)
     public void navigateToCartPage(){
-        logger.info("Case 4: Pressing cart button");
-
-
-    try {
-        tester.findElement(cartNavPath).click();
-        compare(tester.getCurrentUrl(), cartPage);
-        logger.info("Case 4:Pass");
-        homePassed+=1;
-    } catch (Exception e) {
-        homeFailed+=1;
-        logger.info("Case 4: Fail - Cause: " + e);
-    }
-
+        navigateToPage(
+                4,
+                cartNavPath,
+                cartPage);
     }
 
     @Test (priority = 2)
     public void openLoginSection(){
-        logger.info("Case 5: Pressing login button");
-
-
-        try {
-            tester.findElement(loginNavPath).click();
-            WebElement section = findElementAndWait(10, loginSectionPath);
-            checkElementDisplay(section);
-            logger.info("Case 5: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 5: Fail - Cause: " + e);
-        }
+        openSection(
+                5,
+                loginNavPath,
+                loginSectionPath);
 
     }
     @Test (priority = 2)
     public void openSignUpSection(){
-        logger.info("Case 6: Pressing sign up button");
-
-        try {
-            tester.findElement(signUpUsNavPath).click();
-            WebElement section = findElementAndWait(10, signupSectionPath);
-            checkElementDisplay(section);
-            logger.info("Case 6: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 6: Fail - Cause: " + e);
-        }
+        openSection(
+                6,
+                signUpNavPath,
+                signupSectionPath);
     }
 
     ///////////////////////////////////////////////////////////////////////
-    //2. Body
+    //2. Page Body
     @Test (priority = 3)
     public void pressNextArrow(){
-        logger.info("Case 7: Pressing next Arrow..");
-
-
-        try {
-            WebElement activeImage = getActiveImage();
-            tester.findElement(nextArrow).click();
-            waitForElementInVisibility(10, activeImage);
-            checkElementNotDisplayed(activeImage);
-            logger.info("Case 7: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 7: Fail - Cause: " + e);
-        }
+        switchImagesWithArrow(
+                7,
+                nextArrow,
+                getActiveImage()
+        );
     }
     @Test (priority = 3)
     public void pressPrevArrow(){
-        logger.info("Case 8: Pressing previous Arrow..");
-
-
-        try {
-            WebElement activeImage = getActiveImage();
-            tester.findElement(prevArrow).click();
-            waitForElementInVisibility(10, activeImage);
-            checkElementNotDisplayed(activeImage);
-            logger.info("Case 8: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 8: Fail - Cause: " + e);
-        }
+        switchImagesWithArrow(
+                8,
+                prevArrow,
+                getActiveImage()
+        );
     }
 
     @Test (priority = 3)
     public void pressSlideLeftButton(){
-        logger.info("Case 9: Press left slide button");
-
-        try {
-            tester.findElement(slideLeftButton).click();
-            WebElement image = findElementAndWait(5, slideImage1);
-            checkElementDisplay(image);
-
-            logger.info("Case 9: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 9: Fail - Cause: " + e);
-        }
+        switchImagesWithButton(
+                9,
+                slideLeftButton,
+                slideImage1
+        );
     }
     @Test (priority = 3)
     public void pressSlideMiddleButton(){
-        logger.info("Case 10: Press middle slide button");
-
-        try {
-            tester.findElement(slideMiddleButton).click();
-            WebElement image = findElementAndWait(5, slideImage2);
-            checkElementDisplay(image);
-
-            logger.info("Case 10: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 10: Fail - Cause: " + e);
-        }
+        switchImagesWithButton(
+                10,
+                slideMiddleButton,
+                slideImage2
+        );
     }
     @Test (priority = 3)
     public void pressSlideRightButton(){
-        logger.info("Case 11: Press right slide button");
-
-        try {
-            tester.findElement(slideRightButton).click();
-            WebElement image = findElementAndWait(5, slideImage3);
-            checkElementDisplay(image);
-            logger.info("Case 11: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 11: Fail - Cause: " + e);
-        }
+        switchImagesWithButton(
+                11,
+                slideRightButton,
+                slideImage3
+        );
     }
     @Test (priority = 2)
     public void pressPhoneCategory(){
-        logger.info("Case 12: Press phones category button");
-
-
-        try {
-            tester.findElement(phonesCategoryButton).click();
-            WebElement phone =  findElementAndWait(10,expectedItems[0][0]);
-            checkElementDisplay(phone);
-
-            logger.info("Case 12 --> Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 12: Fail - Cause: " + e);
-        }
-
+        selectCategory(
+                12,
+                phonesCategoryButton,
+                expectedItems[0][0]
+        );
     }
     @Test (priority = 2)
     public void pressLaptopsCategory(){
-        logger.info("Case 13: Press laptop category button");
-
-        try {
-            tester.findElement(laptopsCategoryButton).click();
-            WebElement laptop = findElementAndWait(10,expectedItems[1][0]);
-            checkElementDisplay(laptop);
-
-            logger.info("Case 13 --> Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 13: Fail - Cause: " + e);
-        }
+        selectCategory(
+                13,
+                laptopsCategoryButton,
+                expectedItems[1][0]
+        );
 
     }
     @Test (priority = 2)
     public void pressMonitorCategory(){
-        logger.info("Case 14: Press monitor category button");
-
-        try {
-            tester.findElement(monitorsCategoryButton).click();
-            WebElement monitor = findElementAndWait(10,expectedItems[2][0]);
-            checkElementDisplay(monitor);
-
-            logger.info("Case 14: Pass");
-            homePassed+=1;
-        } catch (Exception e) {
-            homeFailed+=1;
-            logger.info("Case 14: Fail - Cause: " + e);
-        }
+        selectCategory(
+                14,
+                monitorsCategoryButton,
+                expectedItems[2][0]
+        );
 
     }
     @Test (priority = 2)
@@ -283,9 +162,7 @@ public class HomePage {
             checkElementDisplay(monitor);
 
             logger.info("Case 15: Pass");
-            homePassed+=1;
         } catch (Exception e) {
-            homeFailed+=1;
             logger.info("Case 15: Fail - Cause: " + e);
         }
     }
@@ -301,9 +178,7 @@ public class HomePage {
             checkElementDisplay(laptop);
 
             logger.info("Case 16 --> Pass");
-            homePassed += 1;
         } catch (Exception e) {
-            homeFailed += 1;
             logger.info("Case 16: Fail - Next Page button does not work");
         }
     }
@@ -311,7 +186,6 @@ public class HomePage {
 
     @AfterTest
     public static void disableDriver(){
-        logger.info("Final Result\nPass: "+homePassed+"\n"+"Fail: "+homeFailed);
         tester.quit();
     }
 }
