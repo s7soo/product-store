@@ -14,13 +14,12 @@ import static utilities.HomeHelper.navigateToPage;
 
 
 public class HomePage {
+    private static WebDriver tester;
 
 
-    @BeforeTest
+    @BeforeClass
     public static void setup(){
-        if (tester == null){
-            tester = new ChromeDriver();
-        }
+        tester = new ChromeDriver();
         if (actions == null){
             actions = new Actions(tester);
         }
@@ -38,14 +37,16 @@ public class HomePage {
         navigateToPage(
                 1,
                 homeNavPath,
-                homePage);
+                homePage,
+                tester);
     }
     @Test (priority = 2)
     public void openContactSection(){
         openSection(
                 2,
                 contactNavPath,
-                contactSectionPath);
+                contactSectionPath,
+                tester);
     }
 
     @Test (priority = 2)
@@ -53,7 +54,8 @@ public class HomePage {
         openSection(
                 3,
                 aboutUsNavPath,
-                aboutUsSectionPath);
+                aboutUsSectionPath,
+                tester);
     }
 
     @Test (priority = 2)
@@ -61,7 +63,8 @@ public class HomePage {
         navigateToPage(
                 4,
                 cartNavPath,
-                cartPage);
+                cartPage,
+                tester);
     }
 
     @Test (priority = 2)
@@ -69,7 +72,8 @@ public class HomePage {
         openSection(
                 5,
                 loginNavPath,
-                loginSectionPath);
+                loginSectionPath,
+                tester);
 
     }
     @Test (priority = 2)
@@ -77,7 +81,8 @@ public class HomePage {
         openSection(
                 6,
                 signUpNavPath,
-                signupSectionPath);
+                signupSectionPath,
+                tester);
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -87,7 +92,8 @@ public class HomePage {
         switchImagesWithArrow(
                 7,
                 nextArrow,
-                getActiveImage()
+                getActiveImage(tester),
+                tester
         );
     }
     @Test (priority = 3)
@@ -95,7 +101,8 @@ public class HomePage {
         switchImagesWithArrow(
                 8,
                 prevArrow,
-                getActiveImage()
+                getActiveImage(tester),
+                tester
         );
     }
 
@@ -104,7 +111,8 @@ public class HomePage {
         switchImagesWithButton(
                 9,
                 slideLeftButton,
-                slideImage1
+                slideImage1,
+                tester
         );
     }
     @Test (priority = 3)
@@ -112,7 +120,8 @@ public class HomePage {
         switchImagesWithButton(
                 10,
                 slideMiddleButton,
-                slideImage2
+                slideImage2,
+                tester
         );
     }
     @Test (priority = 3)
@@ -120,7 +129,8 @@ public class HomePage {
         switchImagesWithButton(
                 11,
                 slideRightButton,
-                slideImage3
+                slideImage3,
+                tester
         );
     }
     @Test (priority = 2)
@@ -128,7 +138,8 @@ public class HomePage {
         selectCategory(
                 12,
                 phonesCategoryButton,
-                expectedItems[0][0]
+                expectedItems[0][0],
+                tester
         );
     }
     @Test (priority = 2)
@@ -136,7 +147,8 @@ public class HomePage {
         selectCategory(
                 13,
                 laptopsCategoryButton,
-                expectedItems[1][0]
+                expectedItems[1][0],
+                tester
         );
 
     }
@@ -145,7 +157,8 @@ public class HomePage {
         selectCategory(
                 14,
                 monitorsCategoryButton,
-                expectedItems[2][0]
+                expectedItems[2][0],
+                tester
         );
 
     }
@@ -156,9 +169,9 @@ public class HomePage {
         try {
             tester.findElement(categoryButton).click();
             WebElement next = tester.findElement(nextPage);
-            scrollToElement(next);
+            scrollToElement(tester, next);
             next.click();
-            WebElement monitor = findElementAndWait(10, expectedItems[2][0]);
+            WebElement monitor = findElementAndWait(10, tester,expectedItems[2][0]);
             checkElementDisplay(monitor);
 
             logger.info("Case 15: Pass");
@@ -172,9 +185,9 @@ public class HomePage {
         try {
             tester.findElement(categoryButton).click();
             WebElement prev = tester.findElement(prevPage);
-            scrollToElement(prev);
+            scrollToElement(tester, prev);
             prev.click();
-            WebElement laptop = findElementAndWait(10, expectedItems[1][0]);
+            WebElement laptop = findElementAndWait(10,tester, expectedItems[1][0]);
             checkElementDisplay(laptop);
 
             logger.info("Case 16 --> Pass");
@@ -184,8 +197,8 @@ public class HomePage {
     }
 
 
-    @AfterTest
-    public static void disableDriver(){
+    @AfterClass
+    public static void tearDown(){
         tester.quit();
     }
 }

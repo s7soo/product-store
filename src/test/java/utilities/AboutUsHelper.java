@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class AboutUsHelper {
-    public static boolean checkVideo(WebDriver driver, WebElement videoElement) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+    public static boolean checkVideo(WebDriver tester, WebElement videoElement) {
+        JavascriptExecutor js = (JavascriptExecutor) tester;
 
         // Get current play time
         Number startTime =

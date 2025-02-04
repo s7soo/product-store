@@ -1,11 +1,9 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static constants.Elements.*;
 import static constants.Elements.tester;
@@ -15,9 +13,9 @@ import static utilities.GenericHelper.*;
 import static utilities.RandomWordGenerator.generateRandomWord;
 
 public class Contact {
-    @BeforeTest
+    private static WebDriver tester;
+    @BeforeClass
     public static void setup(){
-        if (tester == null)
             tester = new ChromeDriver();
     }
 
@@ -38,7 +36,8 @@ public class Contact {
                 email,
                 name,
                 message,
-                alertText
+                alertText,
+                tester
         );
     }
 
@@ -53,7 +52,8 @@ public class Contact {
                 email,
                 name,
                 message,
-                alertText
+                alertText,
+                tester
         );
     }
     @Test(priority = 1)
@@ -67,7 +67,8 @@ public class Contact {
                 email,
                 name,
                 message,
-                alertText
+                alertText,
+                tester
         );
     }
     @Test(priority = 1)
@@ -81,7 +82,8 @@ public class Contact {
                 email,
                 name,
                 message,
-                alertText
+                alertText,
+                tester
         );
     }
     @Test(priority = 1)
@@ -95,7 +97,8 @@ public class Contact {
                 email,
                 name,
                 message,
-                alertText
+                alertText,
+                tester
         );
     }
     @Test(priority = 1)
@@ -109,18 +112,19 @@ public class Contact {
                 email,
                 name,
                 message,
-                alertText
+                alertText,
+                tester
         );
     }
     @Test (priority = 2)
     public void closeContact(){
-        WebElement section = findElementAndWait(10, contactSectionPath);
+        WebElement section = findElementAndWait(10,tester, contactSectionPath);
         tester.findElements(closeButton0).getFirst().click();
-        waitForElementInVisibility(10, section);
+        waitForElementInVisibility(10,tester, section);
         checkElementNotDisplayed(section);
     }
-    @AfterTest
-    public static void disableDriver(){
+    @AfterClass
+    public static void tearDown(){
         tester.quit();
     }
 }

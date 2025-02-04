@@ -1,11 +1,9 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static constants.Elements.*;
 import static constants.Links.homePage;
@@ -13,11 +11,11 @@ import static utilities.AboutUsHelper.checkVideo;
 import static utilities.GenericHelper.*;
 
 public class AboutUs {
+    private static WebDriver tester;
 
-    @BeforeTest
+    @BeforeClass
     public static void setup(){
-        if (tester == null)
-            tester = new ChromeDriver();
+        tester = new ChromeDriver();
     }
 
     @BeforeMethod
@@ -30,8 +28,8 @@ public class AboutUs {
     public void playAboutUsVideo(){
         logger.info("Case 1");
 
-        findElementAndWait(10, videoButton).click();
-        WebElement videoElement = findElementAndWait(10, video);
+        findElementAndWait(10, tester,videoButton).click();
+        WebElement videoElement = findElementAndWait(10, tester,video);
         boolean videoWorking = checkVideo(tester, videoElement);
         assertion.assertTrue(videoWorking);
 
@@ -42,15 +40,15 @@ public class AboutUs {
     public void closeAboutUs(){
         logger.info("Case 2");
 
-        WebElement section = findElementAndWait(10, aboutUsSectionPath);
+        WebElement section = findElementAndWait(10,tester, aboutUsSectionPath);
         tester.findElements(closeButton3).get(3).click();
-        waitForElementInVisibility(10, section);
+        waitForElementInVisibility(10,tester,section);
         checkElementNotDisplayed(section);
 
         logger.info("Case 2: Pass");
     }
-    @AfterTest
-    public static void disableDriver(){
+    @AfterClass
+    public static void tearDown(){
         tester.quit();
     }
 

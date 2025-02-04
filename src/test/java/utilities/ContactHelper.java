@@ -1,6 +1,7 @@
 package utilities;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.WebDriver;
 
 import static constants.Elements.*;
 import static constants.Elements.logger;
@@ -11,24 +12,19 @@ public class ContactHelper {
     public static void sendMessage(
             int caseNum, String email,
             String name,String message,
-            String errorMsg
+            String errorMsg, WebDriver tester
     ){
         logger.info("Case "+caseNum);
-        try {
-            findElementAndWait(10, contactEmail).sendKeys(email);
-            findElementAndWait(10, contactName).sendKeys(name);
-            findElementAndWait(10, contactMessage).sendKeys(message);
-            findElementAndWait(10,sendMessageButton).click();
+            findElementAndWait(10, tester,contactEmail).sendKeys(email);
+            findElementAndWait(10, tester,contactName).sendKeys(name);
+            findElementAndWait(10, tester,contactMessage).sendKeys(message);
+            findElementAndWait(10, tester,sendMessageButton).click();
 
-            Alert alert = waitAlert(10);
+            Alert alert = waitAlert(10, tester);
             String alertText = alert.getText();
             alert.accept();
 
             compare(alertText,errorMsg);
-            logger.info("Case "+caseNum+": Pass");
-        }catch (Exception e){
-            logger.info("Case "+caseNum+": Fail - " + e);
-        }
     }
 
     public static String generateValidEmail(){

@@ -1,12 +1,10 @@
 package pages;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static constants.Elements.*;
 import static constants.Links.homePage;
@@ -17,9 +15,9 @@ import static utilities.RandomWordGenerator.generateRandomWord;
 
 public class Login {
     private static Alert alert;
-    @BeforeTest
+    private static WebDriver tester;
+    @BeforeClass
     public static void setup(){
-        if (tester == null)
             tester = new ChromeDriver();
     }
 
@@ -38,7 +36,8 @@ public class Login {
                 1,
                 username,
                 password,
-                "Please fill out Username and Password."
+                "Please fill out Username and Password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -49,7 +48,8 @@ public class Login {
                 2,
                 username,
                 password,
-                "Please fill out Username."
+                "Please fill out Username.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -60,7 +60,8 @@ public class Login {
                 3,
                 username,
                 password,
-                "Please fill out Password."
+                "Please fill out Password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -71,7 +72,8 @@ public class Login {
                 4,
                 username,
                 password,
-                "Wrong password."
+                "Wrong password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -82,7 +84,8 @@ public class Login {
                 5,
                 username,
                 password,
-                "Wrong password."
+                "Wrong password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -92,19 +95,20 @@ public class Login {
         validLogin(
                 6,
                 username,
-                password
+                password,
+                tester
         );
     }
     @Test (priority = 2)
     public void closeSignUp(){
-        WebElement section = findElementAndWait(10, loginSectionPath);
+        WebElement section = findElementAndWait(10,tester, loginSectionPath);
         tester.findElements(closeButton2).get(2).click();
-        waitForElementInVisibility(10, section);
+        waitForElementInVisibility(10,tester, section);
         checkElementNotDisplayed(section);
     }
 
-    @AfterTest
-    public static void disableDriver(){
+    @AfterClass
+    public static void tearDown(){
         tester.quit();
     }
 }

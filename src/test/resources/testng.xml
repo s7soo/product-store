@@ -1,0 +1,13 @@
+<suite name="AllTests">
+    <test name="SeleniumTests">
+        <classes>
+            <class name="pages.HomePage"/>
+            <class name="pages.Signup"/>
+            <class name="pages.Login"/>
+            <class name="pages.CartPage"/>
+            <class name="pages.AboutUs"/>
+            <class name="pages.Contact"/>
+            <!-- Add more test classes here -->
+        </classes>
+    </test>
+</suite>

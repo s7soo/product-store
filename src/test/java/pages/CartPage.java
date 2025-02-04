@@ -1,24 +1,23 @@
 package pages;
 
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static constants.Elements.*;
+import static constants.Elements.tester;
 import static utilities.CartHelper.*;
 import static utilities.ContactHelper.generateValidName;
 import static utilities.GenericHelper.*;
 import static constants.Links.homePage;
 
 public class CartPage {
-    @BeforeTest
+    private static WebDriver tester;
+    @BeforeClass
     public static void setup(){
-        if (tester == null)
-            tester = new ChromeDriver();
+        tester = new ChromeDriver();
     }
 
     @BeforeMethod
@@ -29,22 +28,22 @@ public class CartPage {
     @Test(priority = 1)
     public void addProduct(){
         logger.info("Case 1");
-        WebElement productName = addProductToCart();
+        WebElement productName = addProductToCart(tester);
         checkElementDisplay(productName);
         logger.info("Case 1: Pass");
     }
     @Test(priority = 1)
     public void deleteProductFromCard(){
         logger.info("Case 2");
-        WebElement productName = addProductToCart();
-        findElementAndWait(10, deleteProduct).click();
-        waitForElementInVisibility(10, productName);
+        WebElement productName = addProductToCart(tester);
+        findElementAndWait(10, tester,deleteProduct).click();
+        waitForElementInVisibility(10,tester, productName);
         logger.info("Case 2: Pass");
     }
     @Test(priority = 1)
     public void fillPurchaseFormWithEmptyFields(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
         String name = "";
         String country = "";
         String city = "";
@@ -54,16 +53,16 @@ public class CartPage {
         fillPurchaseForm(
                 3, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        String alertText = acceptAlert(10);
+        String alertText = acceptAlert(10, tester);
         compare(alertText,
                 "Please fill out Name, country, city, credit card, month, and year");
     }
     @Test(priority = 1)
     public void fillPurchaseFormWithoutName(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
         int index = generateRandomNumber();
         String name = "";
         String country = generateValidCountry(index);
@@ -74,16 +73,16 @@ public class CartPage {
         fillPurchaseForm(
                 4, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        String alertText = acceptAlert(10);
+        String alertText = acceptAlert(10, tester);
         compare(alertText,
                 "Please fill out your Name");
     }
     @Test(priority = 1)
     public void fillPurchaseFormWithoutCountry(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
         int index = generateRandomNumber();
         String name = generateValidName();
         String country = "";
@@ -94,11 +93,11 @@ public class CartPage {
         fillPurchaseForm(
                 5, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        assertion.assertTrue(isAlertVisible(5),
+        assertion.assertTrue(isAlertVisible(5, tester),
                 "Product is confirmed with empty country");
-            String alertText = acceptAlert(5);
+            String alertText = acceptAlert(5, tester);
             compare(alertText,
                     "Please fill out Country");
 
@@ -106,8 +105,8 @@ public class CartPage {
     }
     @Test(priority = 1)
     public void fillPurchaseFormWithoutCity(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10,tester, placeOrderButton).click();
         int index = generateRandomNumber();
         String name = generateValidName();
         String country = generateValidCountry(index);
@@ -118,18 +117,18 @@ public class CartPage {
         fillPurchaseForm(
                 6, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        assertion.assertTrue(isAlertVisible(5),
+        assertion.assertTrue(isAlertVisible(5, tester),
                 "Product is confirmed with empty city");
-        String alertText = acceptAlert(5);
+        String alertText = acceptAlert(5, tester);
         compare(alertText,
                 "Please fill out city");
     }
     @Test(priority = 1)
     public void fillPurchaseFormWithoutCredit(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
         int index = generateRandomNumber();
         String name = generateValidName();
         String country = generateValidCountry(index);
@@ -140,19 +139,19 @@ public class CartPage {
         fillPurchaseForm(
                 7, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        assertion.assertTrue(isAlertVisible(5),
+        assertion.assertTrue(isAlertVisible(5, tester),
                 "Product is confirmed with empty Credit card");
-        String alertText = acceptAlert(5);
+        String alertText = acceptAlert(5, tester);
         compare(alertText,
                 "Please fill out Credit card");
     }
 
     @Test(priority = 1)
     public void fillPurchaseFormWithoutMonth(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10,tester, placeOrderButton).click();
         int index = generateRandomNumber();
         String name = generateValidName();
         String country = generateValidCountry(index);
@@ -163,18 +162,18 @@ public class CartPage {
         fillPurchaseForm(
                 8, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        assertion.assertTrue(isAlertVisible(5),
+        assertion.assertTrue(isAlertVisible(5, tester),
                 "Product is confirmed with empty month");
-        String alertText = acceptAlert(5);
+        String alertText = acceptAlert(5, tester);
         compare(alertText,
                 "Please fill out month");
     }
     @Test(priority = 1)
     public void fillPurchaseFormWithoutYear(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
         int index = generateRandomNumber();
         String name = generateValidName();
         String country = generateValidCountry(index);
@@ -185,18 +184,18 @@ public class CartPage {
         fillPurchaseForm(
                 9, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        assertion.assertTrue(isAlertVisible(5),
+        assertion.assertTrue(isAlertVisible(5, tester),
                 "Product is confirmed with empty year");
-        String alertText = acceptAlert(5);
+        String alertText = acceptAlert(5, tester);
         compare(alertText,
                 "Please fill out year");
     }
     @Test(priority = 1)
     public void fillPurchaseFormWithInvalidCredit(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
         int index = generateRandomNumber();
         String name = generateValidName();
         String country = generateValidCountry(index);
@@ -207,18 +206,18 @@ public class CartPage {
         fillPurchaseForm(
                 10, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        assertion.assertTrue(isAlertVisible(5),
+        assertion.assertTrue(isAlertVisible(5, tester),
                 "Product is confirmed with invalid Credit card");
-        String alertText = acceptAlert(5);
+        String alertText = acceptAlert(5, tester);
         compare(alertText,
                 "Please use a valid Credit card");
     }
     @Test(priority = 1)
     public void purchaseProduct(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
         int index = generateRandomNumber();
         String name = generateValidName();
         String country = generateValidCountry(index);
@@ -229,23 +228,23 @@ public class CartPage {
         fillPurchaseForm(
                 10, name, country,
                 city, credit,
-                month, year
+                month, year,tester
         );
-        findElementAndWait(10, confirmButton).click();
+        findElementAndWait(10, tester,confirmButton).click();
     }
     @Test(priority = 1)
     public void closePurchaseForm(){
-        addProductToCart();
-        findElementAndWait(10, placeOrderButton).click();
-        findElementAndWait(10, formPurchaseButton);
+        addProductToCart(tester);
+        findElementAndWait(10, tester,placeOrderButton).click();
+        findElementAndWait(10, tester,formPurchaseButton);
         WebElement closeBtn = tester.findElements(formCloseButton).get(2);
-        scrollToElement(closeBtn);
+        scrollToElement(tester, closeBtn);
         closeBtn.click();
-        waitForElementInVisibility(10, closeBtn);
+        waitForElementInVisibility(10, tester,closeBtn);
     }
 
-    @AfterTest
-    public static void disableDriver(){
+    @AfterClass
+    public static void tearDown(){
         tester.quit();
     }
 }

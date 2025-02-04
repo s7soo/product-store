@@ -1,24 +1,26 @@
 package utilities;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.Random;
 
 import static constants.Elements.*;
+import static constants.Elements.tester;
 import static constants.Values.countryCities;
 import static constants.Values.months;
 import static utilities.GenericHelper.*;
 
 public class CartHelper {
-    public static WebElement addProductToCart(){
-        String phoneName = findElementAndWait(10, phoneProduct).getText();
+    public static WebElement addProductToCart(WebDriver tester){
+        String phoneName = findElementAndWait(10, tester, phoneProduct).getText();
         tester.findElement(phoneProduct).click();
-        findElementAndWait(10, addToCartButton).click();
+        findElementAndWait(10,tester, addToCartButton).click();
 
-        String alertText = acceptAlert(10);
+        String alertText = acceptAlert(10, tester);
 
         tester.findElement(cartNavPath).click();
-        return findElementAndWait(10, findElementWithText("td",phoneName));
+        return findElementAndWait(10, tester,findElementWithText("td",phoneName));
     }
 
     public static void fillPurchaseForm(
@@ -28,16 +30,17 @@ public class CartHelper {
             String city,
             String credit,
             String month,
-            String year
+            String year,
+            WebDriver tester
     ){
         logger.info("Case "+caseNum);
-        findElementAndWait(10, formName).sendKeys(name);
-        findElementAndWait(10, formCountry).sendKeys(country);
-        findElementAndWait(10, formCity).sendKeys(city);
-        findElementAndWait(10, formCredit).sendKeys(credit);
-        findElementAndWait(10, formMonth).sendKeys(month);
-        findElementAndWait(10, formYear).sendKeys(year);
-        findElementAndWait(10, formPurchaseButton).click();
+        findElementAndWait(10,tester, formName).sendKeys(name);
+        findElementAndWait(10,tester, formCountry).sendKeys(country);
+        findElementAndWait(10,tester, formCity).sendKeys(city);
+        findElementAndWait(10,tester, formCredit).sendKeys(credit);
+        findElementAndWait(10,tester, formMonth).sendKeys(month);
+        findElementAndWait(10,tester, formYear).sendKeys(year);
+        findElementAndWait(10,tester, formPurchaseButton).click();
 
     }
     public static int generateRandomNumber(){

@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
@@ -12,13 +13,10 @@ import static utilities.RandomWordGenerator.*;
 import static utilities.SignUpHelper.*;
 
 public class Signup {
-    private static Alert alert;
-    @BeforeTest
+    private static WebDriver tester;
+    @BeforeClass
     public static void setup(){
-        if (tester == null)
-            tester = new ChromeDriver();
-        signupPassed = 0;
-        signupFailed = 0;
+        tester = new ChromeDriver();
     }
 
     @BeforeMethod
@@ -37,7 +35,8 @@ public class Signup {
                 1,
                 username,
                 password,
-                "Please use a password more than 8 characters."
+                "Please use a password more than 8 characters.",
+                tester
         );
     }
 
@@ -49,7 +48,8 @@ public class Signup {
                 2,
                 username,
                 password,
-                "Please use a password more than 8 characters."
+                "Please use a password more than 8 characters.",
+                tester
         );
     }
 
@@ -61,7 +61,8 @@ public class Signup {
                 3,
                 username,
                 password,
-                "Please use a password more than 8 characters."
+                "Please use a password more than 8 characters.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -72,7 +73,8 @@ public class Signup {
                 4,
                 username,
                 password,
-                "Please use a password more than 8 characters."
+                "Please use a password more than 8 characters.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -83,7 +85,8 @@ public class Signup {
                 5,
                 username,
                 password,
-                "Please use numbers in your password."
+                "Please use numbers in your password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -94,7 +97,8 @@ public class Signup {
                 6,
                 username,
                 password,
-                "Please use uppercase letters in your password."
+                "Please use uppercase letters in your password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -105,7 +109,8 @@ public class Signup {
                 7,
                 username,
                 password,
-                "Please use uppercase letters in your password."
+                "Please use uppercase letters in your password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -116,7 +121,8 @@ public class Signup {
                 8,
                 username,
                 password,
-                "Please use lowercase letters in your password."
+                "Please use lowercase letters in your password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -127,7 +133,8 @@ public class Signup {
                 9,
                 username,
                 password,
-                "Please use a Strong Password."
+                "Please use a Strong Password.",
+                tester
         );
     }
     @Test (priority = 1)
@@ -139,14 +146,16 @@ public class Signup {
                     10,
                     username,
                     password,
-                    "Sign up successful."
+                    "Sign up successful.",
+                    tester
             );
             openHomePage();
             signUp(
                     10,
                     username,
                     password,
-                    "This user already exist."
+                    "This user already exist.",
+                    tester
             );
         }catch (Exception e){
             logger.info("--> Error: "+e);
@@ -162,19 +171,20 @@ public class Signup {
                 11,
                 username,
                 password,
-                "Sign up successful."
+                "Sign up successful.",
+                tester
         );
     }
     @Test (priority = 2)
     public void closeSignUp(){
-        WebElement section = findElementAndWait(10, signupSectionPath);
+        WebElement section = findElementAndWait(10,tester, signupSectionPath);
         tester.findElements(closeButton1).get(1).click();
-        waitForElementInVisibility(10, section);
+        waitForElementInVisibility(10,tester, section);
         checkElementNotDisplayed(section);
     }
 
-    @AfterTest
-    public static void disableDriver(){
+    @AfterClass
+    public static void tearDown(){
         tester.quit();
     }
 }

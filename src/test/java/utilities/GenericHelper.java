@@ -11,25 +11,21 @@ import static constants.Elements.*;
 
 public class GenericHelper {
 
-    public static WebElement findElementAndWait(long time, By path){
+    public static WebElement findElementAndWait(long time,WebDriver tester, By path){
         WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(path));
     }
-    public static List<WebElement> findElementsAndWait(long time, By path){
-        WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
-        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(path));
-    }
-    public static Boolean waitForElementVisibility(long time, WebElement element){
+    public static Boolean waitForElementVisibility(long time,WebDriver tester, WebElement element){
         WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
         return wait.until(ExpectedConditions.invisibilityOf(element));
     }
-    public static void waitForElementInVisibility(long time, WebElement element){
+    public static void waitForElementInVisibility(long time,WebDriver tester, WebElement element){
         WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
 
-    public static void scrollToElement(WebElement element){
+    public static void scrollToElement(WebDriver tester,WebElement element){
         actions = new Actions(tester);
         actions.moveToElement(element);
         actions.perform();
@@ -50,11 +46,11 @@ public class GenericHelper {
     public static By findElementWithText(String tag,String text){
        return  new By.ByXPath("//"+tag+"[contains(text(), '"+text+"')]");
     }
-    public static Alert waitAlert(long time){
+    public static Alert waitAlert(long time,WebDriver tester){
             WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
             return wait.until(ExpectedConditions.alertIsPresent());
     }
-    public static boolean isAlertVisible(long time) {
+    public static boolean isAlertVisible(long time,WebDriver tester) {
         try {
             WebDriverWait wait = new WebDriverWait(tester, Duration.ofSeconds(time));
             wait.until(ExpectedConditions.alertIsPresent());
@@ -63,8 +59,8 @@ public class GenericHelper {
             return false;
         }
     }
-    public static String acceptAlert(long time){
-        Alert alert = waitAlert(time);
+    public static String acceptAlert(long time,WebDriver tester){
+        Alert alert = waitAlert(time, tester);
         String alertText = alert.getText();
         alert.accept();
         return alertText;
