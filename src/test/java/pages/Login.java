@@ -98,7 +98,7 @@ public class Login {
     @Test (priority = 2)
     public void closeSignUp(){
         WebElement section = findElementAndWait(10, loginSectionPath);
-        tester.findElements(loginCloseButton).get(2).click();
+        tester.findElements(closeButton2).get(2).click();
         waitForElementInVisibility(10, section);
         checkElementNotDisplayed(section);
     }

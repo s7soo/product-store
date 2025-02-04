@@ -96,7 +96,7 @@ public class Elements {
             new By.ByXPath("//input[@id='sign-password']");
     public static By signupButton =
             new By.ByXPath("//button[contains(text(), 'Sign up')]");
-    public static By signupCloseButton =
+    public static By closeButton1 =
             new By.ByXPath("//button[contains(text(), 'Close')]");
 
     // Login Elements
@@ -107,8 +107,51 @@ public class Elements {
             new By.ByXPath("//input[@id='loginpassword']");
     public static By loginButton =
             new By.ByXPath("//button[contains(text(), 'Log in')]");
-    public static By loginCloseButton =
+    public static By closeButton2 =
             new By.ByXPath("//button[contains(text(), 'Close')]");
     public static By visibleName =
             new By.ByXPath("//a[@id='nameofuser']");
+
+    // about us elements
+    public static By video =
+            new By.ByXPath("//video[@id='example-video_html5_api']");
+    public static By videoButton =
+            new By.ByXPath("//button[@title='Play Video']");
+    public static By closeButton3 =
+            new By.ByXPath("//button[contains(text(), 'Close')]");
+
+    // contact elements
+    public static By contactEmail =
+            new By.ById("recipient-email");
+    public static By contactName =
+            new By.ById("recipient-name");
+    public static By contactMessage=
+            new By.ById("message-text");
+    public static By sendMessageButton =
+            new By.ByXPath("//button[contains(text(), 'Send message')]");
+    public static By closeButton0 =
+            new By.ByXPath("//button[contains(text(), 'Close')]");
+
+    // cart elements
+    public static By addToCartButton =
+            new By.ByXPath("//a[@onclick='addToCart(1)']");
+    public static By phoneProduct =
+            new By.ByXPath("//a[contains(text(), 'Samsung galaxy s6')]");
+    public static By deleteProduct =
+            new By.ByXPath("//a[contains(text(), 'Delete')]");
+    public static By placeOrderButton =
+            new By.ByXPath("//button[contains(text(), 'Place Order')]");
+    public static By form = new By.ById("orderModalLabel");
+    public static By formName = new By.ById("name");
+    public static By formCountry = new By.ById("country");
+    public static By formCity = new By.ById("city");
+    public static By formCredit = new By.ById("card");
+    public static By formMonth = new By.ById("month");
+    public static By formYear = new By.ById("year");
+    public static By formPurchaseButton=
+            new By.ByXPath("//button[contains(text(), 'Purchase')]");
+    public static By formCloseButton=
+            new By.ByXPath("//button[contains(text(), 'Close')]");
+    public static By confirmButton =
+            new By.ByXPath("//button[@class='confirm btn btn-lg btn-primary']");
 }
