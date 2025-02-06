@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
+import reports.ExtentReportListener;
+
 import static constants.Elements.*;
 import static constants.Values.*;
 import static constants.Links.homePage;
@@ -17,6 +19,7 @@ public class Signup {
     @BeforeClass
     public static void setup(){
         tester = new ChromeDriver();
+        ExtentReportListener.setDriver(tester);
     }
 
     @BeforeMethod

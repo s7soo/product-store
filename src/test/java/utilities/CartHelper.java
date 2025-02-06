@@ -13,11 +13,10 @@ import static utilities.GenericHelper.*;
 
 public class CartHelper {
     public static WebElement addProductToCart(WebDriver tester){
-        String phoneName = findElementAndWait(10, tester, phoneProduct).getText();
+        findElementAndWait(10, tester, categoryButton).click();
+        String phoneName = findElementAndWait(20, tester, phoneProduct).getText();
         tester.findElement(phoneProduct).click();
         findElementAndWait(10,tester, addToCartButton).click();
-
-        String alertText = acceptAlert(10, tester);
 
         tester.findElement(cartNavPath).click();
         return findElementAndWait(10, tester,findElementWithText("td",phoneName));

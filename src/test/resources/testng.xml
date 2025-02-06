@@ -1,4 +1,9 @@
 <suite name="AllTests">
+
+    <listeners>
+        <listener class-name="reports.ExtentReportListener"/>
+    </listeners>
+
     <test name="SeleniumTests">
         <classes>
             <class name="pages.HomePage"/>
@@ -11,3 +16,4 @@
         </classes>
     </test>
 </suite>
+

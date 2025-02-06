@@ -13,7 +13,6 @@ public class SignUpHelper {
                               String pass, String errorMsg, WebDriver tester
                               ){
         logger.info("Case "+caseNum);
-        try {
             findElementAndWait(10,tester, signUsername).sendKeys(user);
             findElementAndWait(10,tester, signPassword).sendKeys(pass);
             findElementAndWait(10,tester, signupButton).click();
@@ -22,8 +21,5 @@ public class SignUpHelper {
             alert.accept();
             compare(alertText,errorMsg);
             logger.info("Case "+caseNum+": Pass");
-        }catch (Exception e){
-            logger.info("Case "+caseNum+": Fail - " + e);
-        }
     }
 }

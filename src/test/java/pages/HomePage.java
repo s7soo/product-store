@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.*;
+import reports.ExtentReportListener;
 
 import static constants.Elements.*;
 import static constants.Values.*;
@@ -20,6 +21,7 @@ public class HomePage {
     @BeforeClass
     public static void setup(){
         tester = new ChromeDriver();
+        ExtentReportListener.setDriver(tester);
         if (actions == null){
             actions = new Actions(tester);
         }
